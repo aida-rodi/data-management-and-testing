@@ -8,21 +8,31 @@ function getAllDirectors(movies) {
 }
 
 // Exercise 2: Get the films of a certain director
-function getMoviesFromDirector(movies) {
-  let director = "Quentin Tarantino"
-  let result = movies.filter((film) => film.director === director);
-  console.log("EXERCICE 2 ->", result);
-  return result
+function getMoviesFromDirector(movies, director = 'Quentin Tarantino') {
+  let directorFilms = movies.filter((film) => film.director === director);
+  console.log("EXERCICE 2 ->", directorFilms);
+  return directorFilms;
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
-function moviesAverageOfDirector(array, director) {
-  
+function moviesAverageOfDirector(movies, director = 'Quentin Tarantino') {
+  let directorFilms = movies.filter((film) => film.director === director);
+  let scores =  directorFilms.map(function(film){
+    return `${film.score}`;
+  });
+  let sum = 0;
+  scores.map(function(score) {
+    sum = sum + Number(score)
+    return sum
+  });
+  const avg = sum/directorFilms.length;
+  console.log("EXERCICE 3 ->", avg);
+  return avg;
 }
 
-// Exercise 4:  Alphabetic order by title 
+// Exercise 4: Alphabetic order by title 
 function orderAlphabetically(array) {
-  
+
 }
 
 // Exercise 5: Order by year, ascending
