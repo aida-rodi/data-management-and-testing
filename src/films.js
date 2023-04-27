@@ -46,20 +46,32 @@ function moviesAverageByCategory(movies, category) {
   const filteredFilms =  movies.filter(film => film.genre.includes(category) && film.score);
   const scoresSum = filteredFilms.reduce((sum, film) => (sum + Number(film.score)), 0);
   const scoresAvg = scoresSum / (filteredFilms.length || 1);
-  /* console.log("EXERCICE 6 ->", dramaFilms); */
+  /* console.log("EXERCICE 6 ->", Number(scoresAvg.toFixed(2))); */
   return Number(scoresAvg.toFixed(2));
 }
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
-
+function hoursToMinutes(movies) {
+  const moviesInMinutes = movies.map(film => {
+    const durationString = film.duration;
+    const hoursMatch = durationString.match(/\d+h/);
+    const minutesMatch = durationString.match(/\d+min/);
+    const hours = hoursMatch ? Number(hoursMatch[0].replace('h', '')) : 0;
+    const minutes = minutesMatch ? Number(minutesMatch[0].replace('min', '')) : 0;
+    const totalMinutes = hours * 60 + minutes;
+    return { ...film, duration: totalMinutes };
+  });
+  /* console.log("EXERCISE 7 ->", moviesInMinutes); */
+  return moviesInMinutes;
 }
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear() {
-  
+function bestFilmOfYear(movies, year) {
+  const moviesOfYear = movies.filter(film => film.year === year);
+  moviesOfYear.sort((a, b) => b.score - a.score);
+  /* console.log("EXERCISE 8 ->", [moviesOfYear[0]]); */
+  return [moviesOfYear[0]];
 }
-
 
 
 // The following is required to make unit tests work.
