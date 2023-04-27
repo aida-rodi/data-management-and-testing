@@ -1,48 +1,53 @@
 // Exercise 1: Get the array of all directors.
 function getAllDirectors(movies) {
-  let result =  movies.map(function(film){
-    return `${film.director}`;
-  });
-  console.log("EXERCICE 1 ->", result);
-  return result;
+  const filmDirectors =  movies.map(film => film.director);
+  /* console.log("EXERCICE 1 ->", result); */
+  return filmDirectors;
 }
 
 // Exercise 2: Get the films of a certain director
-function getMoviesFromDirector(movies, director = 'Quentin Tarantino') {
-  let directorFilms = movies.filter((film) => film.director === director);
-  console.log("EXERCICE 2 ->", directorFilms);
+function getMoviesFromDirector(movies, director) {
+  const directorFilms = movies.filter(film => film.director === director);
+  /* console.log("EXERCICE 2 ->", directorFilms); */
   return directorFilms;
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
-function moviesAverageOfDirector(movies, director = 'Quentin Tarantino') {
-  let directorFilms = movies.filter((film) => film.director === director);
-  let scores =  directorFilms.map(function(film){
-    return `${film.score}`;
-  });
-  let sum = 0;
-  scores.map(function(score) {
-    sum = sum + Number(score)
-    return sum
-  });
-  const avg = sum/directorFilms.length;
-  console.log("EXERCICE 3 ->", avg);
-  return avg;
+function moviesAverageOfDirector(movies, director) {
+  const directorFilms = getMoviesFromDirector(movies, director);
+  const scoresSum =  directorFilms.reduce((sum, film) => sum += film.score, 0);
+  const scoresAvg = scoresSum / directorFilms.length;
+  /* console.log("EXERCICE 3 ->", scoresAvg); */
+  return scoresAvg;
 }
 
 // Exercise 4: Alphabetic order by title 
-function orderAlphabetically(array) {
-
+function orderAlphabetically(movies) {
+  const moviesByTitle = movies.map(film => film.title);
+  moviesByTitle.sort();
+  /* console.log("EXERCISE 4 ->", titles); */
+  return moviesByTitle.slice(0, 20);
 }
 
 // Exercise 5: Order by year, ascending
-function orderByYear() {
-
+function orderByYear(movies) {
+  const moviesByYear = [...movies].sort((a, b) => {
+    if (a.year === b.year) {
+      return a.title.localeCompare(b.title);
+    }
+    return a.year - b.year;
+  });
+  /* console.log("EXERCISE 5 ->", moviesByYear); */
+  return moviesByYear;
 }
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory() {
-
+function moviesAverageByCategory(movies, category) {
+  const filteredFilms =  movies.filter(film => film.genre.includes(category) && film.score);
+  const scoresSum = filteredFilms.reduce((sum, film) => (sum + Number(film.score)), 0);
+  const scoresAvg = scoresSum / (filteredFilms.length || 1);
+  /* console.log("EXERCICE 6 ->", dramaFilms); */
+  return Number(scoresAvg.toFixed(2));
 }
 
 // Exercise 7: Modify the duration of movies to minutes
